@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️FOR YOU❤️</title>
+    <link rel="icon" href="Abi.jpeg">
+
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            color: white;
+        }
+        
+        .page {
+            position: absolute;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 10px;
+            max-width: 300px;
+        }
+        
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 18px;
+            animation: floatUp 6s linear infinite;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh);
+            }
+            100% {
+                transform: translateY(-10vh);
+            }
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            font-size: 20px;
+            border-radius: 40px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff1744, #cc0000);
+            transition: 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 8px 0;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(45deg, #cc0000, #800000);
+            transform: scale(1.05);
+        }
+        
+        .btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hearts" id="hearts"></div>
+
+    <!-- PAGE 1 -->
+    <section id="page1" class="page active">
+        <h1>❤️ HI MY SOUL ❤️</h1>
+        <h2>I made this just for you</h2>
+        <button class="btn" onclick="sendNEXT1()">Next ❤️</button>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section id="page2" class="page">
+        <h2>Why You Are Special 💖</h2>
+        <div class="card">Your smile makes my day</div>
+        <div class="card">You are kind and beautiful</div>
+        <div class="card">You are one of a kind</div>
+        <button class="btn" onclick="sendNEXT2()">Next ❤️</button>
+    </section>
+
+    <!-- PAGE 3 -->
+    <section id="page3" class="page">
+        <h2>My Feelings 💌</h2>
+        <p style="max-width:500px;">
+            You are very special to me ❤️ I made this website just to tell you how special you are to me. This is my small effort from my heart ❤️. These love lines mean that the person you love is very important in your life 💕, not just as a partner but as someone
+            who brings happiness 😊, peace 😌, and purpose 🌍 to your world. They express that being with them makes every moment special ✨, even the simple ones 💫. They show that love is not just about the past ⏳, but something that grows stronger every
+            day 🌱❤️. The lines also mean that true love is about comfort 🤗, trust 🤝, understanding 🫶, and choosing that person again and again 💍. Overall, they say that love is not about perfection 🌟, wealth 💎, or show 🎭—it is about feeling safe
+            🛡️, valued 💖, and happy 😊 with one special person 💑.
+        </p>
+        <h4>I AM ALWAYS WAITING FOR YOU</h4>
+        <button class="btn" onclick="sendNEXT3()">Next ❤️</button>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section id="page4" class="page">
+        <div id="questionsection">
+            <h2>One Question 💍</h2>
+            <h1>MADAM PERMISSION KEDAIKUMA UNGA HEART KULLA VARA 💖</h1>
+            <button class="btn" onclick="handleYes()">YES ❤️</button>
+            <button class="btn" onclick="handleNo()">NO 💔</button>
+        </div>
+    </section>
+
+    <script>
+        let currentPage = 1;
+        let noClickCount = 0;
+
+        /* PAGE NAVIGATION */
+        function goNext() {
+            document.getElementById("page" + currentPage).classList.remove("active");
+            currentPage++;
+            document.getElementById("page" + currentPage).classList.add("active");
+        }
+
+        /* GOOGLE FORM */
+        const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSf3LRrv-vtembq1jodjlEPs-QwVAxwszjRSsTD76NR-V6J7JA/formResponse";
+        const entryId = "entry.672353599";
+
+        function sendData(value) {
+            const data = new FormData();
+            data.append(entryId, value);
+
+            fetch(formURL, {
+                method: "POST",
+                mode: "no-cors",
+                body: data
+            });
+        }
+
+        /* NEXT TRACKING */
+        function sendNEXT1() {
+            sendData("next1");
+            goNext();
+        }
+
+        function sendNEXT2() {
+            sendData("next2");
+            goNext();
+        }
+
+        function sendNEXT3() {
+            sendData("next3");
+            goNext();
+        }
+
+        /* YES */
+        function handleYes() {
+            sendData("yes");
+            playLove();
+        }
+
+        /* NO */
+        function handleNo() {
+
+            noClickCount++;
+
+            if (noClickCount === 1) {
+
+                sendData("no1");
+
+                document.getElementById("questionsection").innerHTML = `
+            <h2 style="font-size:30px;">Think once again 💔</h2>
+            <h3>My heart will break 🥺</h3>
+            <button class="btn" onclick="handleYes()">YES ❤️</button>
+            <button class="btn" onclick="handleNo()">NO 💔</button>
+        `;
+
+            } else {
+
+                sendData("no2");
+
+                document.body.innerHTML = `
+            <h1 style="margin-top:40vh; text-align:center;">
+                Your choice matters… even if it breaks my heart.
+               I’ll still be here… waiting for you🥀....
+               <br><br></h1>
+               
+            
+        `;
+
+                // 🔥 Close after 2 seconds
+                setTimeout(() => {
+                    window.close();
+
+                    // If browser blocks closing → redirect fallback
+                    window.location.href = "about:blank";
+
+                }, 2000);
+            }
+        }
+
+        /* VIDEO */
+        function playLove() {
+
+            // Hide pages
+            document.querySelectorAll(".page").forEach(page => {
+                page.style.display = "none";
+            });
+
+            document.getElementById("hearts").style.display = "none";
+
+            // Create fullscreen container
+            const container = document.createElement("div");
+            container.style.position = "fixed";
+            container.style.top = "0";
+            container.style.left = "0";
+            container.style.width = "100vw";
+            container.style.height = "100vh";
+            container.style.background = "black";
+            container.style.zIndex = "9999";
+
+            // Create video
+            const video = document.createElement("video");
+            video.src = "./love.mp4";
+            video.autoplay = true;
+            video.loop = true;
+            video.playsInline = true;
+            video.controls = false;
+            video.style.width = "100%";
+            video.style.height = "100%";
+            video.style.objectFit = "cover";
+
+            container.appendChild(video);
+            document.body.appendChild(container);
+
+            // 🔥 Request fullscreen on container NOT video
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.webkitRequestFullscreen) {
+                container.webkitRequestFullscreen();
+            } else if (container.msRequestFullscreen) {
+                container.msRequestFullscreen();
+            }
+        }
+        /* HEART ANIMATION */
+        for (let i = 0; i < 20; i++) createHeart();
+        setInterval(createHeart, 200);
+
+        function createHeart() {
+            let h = document.createElement("div");
+            h.className = "heart";
+            h.innerHTML = "❤️";
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.fontSize = (Math.random() * 10 + 14) + "px";
+            h.style.animationDuration = (Math.random() * 3 + 4) + "s";
+            document.getElementById("hearts").appendChild(h);
+            setTimeout(() => h.remove(), 7000);
+        }
+    </script>
+
+</body>
+
+</html>
