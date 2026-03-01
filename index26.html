@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Love Lock</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: black;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        /* Card container */
+        
+        .card {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Image fills screen */
+        
+        .card img {
+            height: 100vh;
+            width: auto;
+            max-width: 100vw;
+            display: block;
+        }
+        /* Inputs locked to image */
+        
+        .box {
+            position: absolute;
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+            color: #ff6f91;
+        }
+        /* DOB inside boxes */
+        
+        .dd {
+            top: 38%;
+            left: 24%;
+            width: 15%;
+        }
+        
+        .mm {
+            top: 38%;
+            left: 45%;
+            width: 15%;
+        }
+        
+        .yy {
+            top: 38%;
+            left: 67%;
+            width: 18%;
+        }
+        /* Name */
+        
+        .name {
+            top: 58%;
+            left: 22%;
+            width: 56%;
+            color: #ff6f91;
+        }
+        
+        .name::placeholder {
+            color: #ff6f91;
+            opacity: 1;
+        }
+        /* Button */
+        
+        .enter {
+            position: absolute;
+            top: 75%;
+            left: 24%;
+            width: 52%;
+            height: 10%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        /* Hidden date picker */
+        
+        #realDate {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <img src="LOVE.jpeg">
+
+        <input id="dd" class="box dd" value="DD" readonly onclick="openDate()">
+        <input id="mm" class="box mm" value="MM" readonly onclick="openDate()">
+        <input id="yy" class="box yy" value="YYYY" readonly onclick="openDate()">
+
+        <input id="name" class="box name" placeholder="Eg: ABINASH">
+
+        <button onclick="checkLove()" class="enter"></button>
+
+    </div>
+
+    <input type="date" id="realDate" onchange="fillDate(this.value)">
+
+    <script>
+        function openDate() {
+            document.getElementById("realDate").showPicker();
+        }
+
+        function fillDate(value) {
+            if (!value) return;
+
+            let date = new Date(value);
+
+            document.getElementById("dd").value = String(date.getDate()).padStart(2, '0');
+            document.getElementById("mm").value = String(date.getMonth() + 1).padStart(2, '0');
+            document.getElementById("yy").value = date.getFullYear();
+        }
+
+        function checkLove() {
+
+            let dd = document.getElementById("dd").value;
+            let mm = document.getElementById("mm").value;
+            let yy = document.getElementById("yy").value;
+
+            let name = document.getElementById("name").value.trim().toUpperCase();
+
+            if (dd === "23" && mm === "10" && yy === "2007" && name === "ABINASH") {
+                document.body.innerHTML = `<div style="height:100vh;display:flex;justify-content:center;align-items:center;background:pink;font-size:40px;color:white;">💖 Welcome To Our Love World 💖</div>`;
+            } else {
+                document.body.innerHTML = `<div style="height:100vh;display:flex;justify-content:center;align-items:center;background:black;color:white;font-size:30px;">❌ Not You 💔</div>`;
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>
